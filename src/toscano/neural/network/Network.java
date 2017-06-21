@@ -104,4 +104,6 @@ public class Network {
 		
 	}
 	
+	public double getError() { return this.o.error; }
+	
 }

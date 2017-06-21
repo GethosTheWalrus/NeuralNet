@@ -22,9 +22,9 @@ public class Main {
 		Network n = new Network(numNeurons, inputs[0].length);
 		
 		System.out.println("Training network...");
-		n.train(100000, inputs, expected);
+		n.train(10000000, inputs, expected);
 		
-		System.out.println("Network fully trained!\n");
+		System.out.println(String.format("Network fully trained with error %f\n", n.getError()));
 		
 		for( int i = 0; i < inputs.length; i++ ) {
 			
