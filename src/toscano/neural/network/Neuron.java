@@ -23,7 +23,15 @@ public class Neuron {
 	
 	public double output() {
 		
-		return Sigmoid.output(weights[0] * inputs[0] + weights[1] * inputs[1] + biasWeight);
+		double expression = 0;
+		for( int i = 0; i < this.numInputs; i++ ) {
+			
+			expression += this.weights[i] * this.inputs[i];
+			
+		}
+		expression += this.biasWeight;
+		
+		return Sigmoid.output(expression);
 		
 	}
 	
@@ -31,11 +39,11 @@ public class Neuron {
 		
 		for(int i = 0; i < this.numInputs; i++) {
 			
-			weights[i] = this.r.nextDouble();
+			this.weights[i] = this.r.nextDouble();
 			
 		}
 		
-		biasWeight = r.nextDouble();
+		this.biasWeight = r.nextDouble();
 		
 	}
 	
@@ -43,11 +51,11 @@ public class Neuron {
 		
 		for(int i = 0; i < this.numInputs; i++) {
 			
-			weights[i] += this.error * inputs[i];
+			this.weights[i] += this.error * this.inputs[i];
 			
 		}
 		
-		biasWeight += error;
+		this.biasWeight += error;
 		
 	}
 

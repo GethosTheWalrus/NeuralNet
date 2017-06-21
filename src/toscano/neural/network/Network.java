@@ -14,7 +14,7 @@ public class Network {
 	public void train() {
 		
 		// Possible inputs
-		double[][] xor = {
+		double[][] inputs = {
 			{0, 0},
 			{0, 1},
 			{1, 0},
@@ -28,7 +28,7 @@ public class Network {
 		this.neurons = new Neuron[this.numNeurons];
 		for(int i = 0; i < this.numNeurons; i++) {
 			
-			Neuron n = new Neuron(xor.length);
+			Neuron n = new Neuron(inputs.length);
 			this.neurons[i] = n;
 			
 		}
@@ -44,27 +44,32 @@ public class Network {
 		
 		o.randomizeWeights();
 		
-		// 1000 training sessions
+		// i training sessions
 		for( int i = 0; i < 10000; i++ ) {
 			
 			// train each possible input once per session
-			for( int j = 0; j < xor.length; j++ ) {
+			for( int j = 0; j < inputs.length; j++ ) {
 				
 				// 1) forward propagation to calculate output
-				for(int n = 0; n < this.numNeurons; n++) {
-										
-					this.neurons[n].inputs[0] = xor[j][0];
-					this.neurons[n].inputs[1] = xor[j][1];
+				for( int n = 0; n < this.numNeurons; n++ ) {
+									
+					// each input value in this set of inputs (e.g. loop through inputs[0] to get inputs[0][0], [0][1] .... [0][p]
+					for( int p = 0; p < inputs[j].length; p++ ) {
+						
+						this.neurons[n].inputs[p] = inputs[j][p];
+						
+					}
 					
 				}
 				
+				// set the output neuron's inputs to the activated values of the hidden layer neurons
 				for(int n = 0; n < this.numNeurons; n++) {
 					
 					o.inputs[n] = this.neurons[n].output();
 					
 				}
 				
-				System.out.println(String.format("%f xor %f = %f", xor[j][0], xor[j][1], o.output()));
+				System.out.println(String.format("%f xor %f = %f", inputs[j][0], inputs[j][1], o.output()));
 				
 				// 2) back propatation to adjust weights
 				
